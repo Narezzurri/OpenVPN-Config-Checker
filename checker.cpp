@@ -76,6 +76,6 @@ signed main (signed argc, const char* argv[])
 	}
 	cout << cnt << " files checked successfully" << endl;
 	freopen ("CON", "r", stdin);
-	cin >> s;
+	getchar ();
 	return 0;
 }

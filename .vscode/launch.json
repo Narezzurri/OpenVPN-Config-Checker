@@ -8,14 +8,10 @@
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}.exe",
 			"args": [
-				"/v",
-				"2",
-				"/t",
-				"4",
 				"c:\\Users\\Administrator\\OpenVPN\\config\\auth.txt",
 				"c:\\Users\\Administrator\\OpenVPN\\config\\p2p-client.ovpn",
 				"c:\\Users\\Administrator\\OpenVPN\\config\\p2p-server.ovpn",
-				"c:\\Users\\Administrator\\OpenVPN\\config\\static.key",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\static.key"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}",

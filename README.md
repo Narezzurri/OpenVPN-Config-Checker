@@ -24,7 +24,9 @@ A practical Win32 software to check in batch the connection between the host and
 
 	Customize the time to break after process a bulk of files which is set above.
 	
-	Set any negative numbers to process the files one by one without starting a new window,which is default
+	Set any negative numbers to process the files one by one without starting a new window,which is default.
+
+	`time` can be a float number.
 
 In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
 
@@ -33,3 +35,5 @@ In addition, you can drag the target config file onto `checker.exe` to start the
 - Generate a list of available server ip address.
 
 - Customize the threshold of ping timeout.
+
+- Customize the number of ping(s) per file.
