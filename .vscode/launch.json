@@ -10,8 +10,6 @@
 			"args": [
 				"/n",
 				"2",
-				"C:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#88-UDP.ovpn",
-				"C:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#106-UDP.ovpn",
 				"C:\\Users\\Administrator\\OpenVPN\\config\\p2p-server.ovpn",
 				"C:\\Users\\Administrator\\OpenVPN\\config\\static.key",
 				"C:\\Users\\Administrator\\OpenVPN\\config\\auth.txt"
