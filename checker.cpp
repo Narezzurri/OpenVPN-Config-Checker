@@ -15,8 +15,13 @@ signed main (signed argc, const char* argv[])
 			cin >> s;
 		scanf ("%d.%d.%d.%d", &a ,&b, &c, &d);
 		s = argv[i];
-		sprintf (cmd, "start \"%s\" cmd /c \"ping -t %d.%d.%d.%d\"\n", s.substr(s.find_last_of('\\') + 1).data(), a, b, c, d);
-		system (cmd);
+		if (s.length() < 5 || s.substr(s.length() - 5) != ".ovpn")
+			printf ("%s is of an unsupported file type.", argv[i]);
+		else
+		{
+			sprintf (cmd, "start \"%s\" cmd /c \"ping -t %d.%d.%d.%d\"\n", s.substr(s.find_last_of('\\') + 1).data(), a, b, c, d);
+			system (cmd);
+		}
 		fclose (stdin);
 	}
 	puts ("Done.");
