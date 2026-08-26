@@ -22,18 +22,23 @@ A practical Win32 software to check in batch the connection between the host and
 
 - `/t time` 
 
-	Customize the time to break after process a bulk of files which is set above.
+	Customize the time[s] to break after process a bulk of files which is set above.
 	
 	Set any negative numbers to process the files one by one without starting a new window,which is default.
 
 	`time` can be a float number.
+
+- `/w timeout` 
+
+	Customize the timeout[s] for every ping,default is `1`.
+
+	`timeout` can be a float number.
+
+- `/n count` 
+	Customize the number of ping(s) per file,default is `4`.
 
 In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
 
 ## Upcoming Features 
 
 - Generate a list of available server ip address.
-
-- Customize the threshold of ping timeout.
-
-- Customize the number of ping(s) per file.

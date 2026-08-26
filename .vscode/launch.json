@@ -8,10 +8,13 @@
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}.exe",
 			"args": [
-				"c:\\Users\\Administrator\\OpenVPN\\config\\auth.txt",
-				"c:\\Users\\Administrator\\OpenVPN\\config\\p2p-client.ovpn",
-				"c:\\Users\\Administrator\\OpenVPN\\config\\p2p-server.ovpn",
-				"c:\\Users\\Administrator\\OpenVPN\\config\\static.key"
+				"/n",
+				"2",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#88-UDP.ovpn",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#106-UDP.ovpn",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\p2p-server.ovpn",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\static.key",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\auth.txt"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}",
