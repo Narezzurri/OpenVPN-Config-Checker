@@ -1,2 +1,11 @@
 # OpenVPN-Config-Checker
-Check if the OpenVPN config file is available to be connected
+
+A practical software to check in batch the connection between the host and remote VPN server,which is recorded in the OpenVPN config file (\*.ovpn).
+
+## Function
+
+- Check if the ip address is available to be connected.
+
+## Usage
+
+`> checker config1.ovpn config2.ovpn ...` 
