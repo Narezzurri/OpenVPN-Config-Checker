@@ -9,3 +9,5 @@ A practical software to check in batch the connection between the host and remot
 ## Usage
 
 `> checker config1.ovpn config2.ovpn ...` 
+
+or drag the target config file onto checker.exe
