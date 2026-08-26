@@ -4,7 +4,7 @@ A practical software to check in batch the connection between the host and remot
 
 ## Function
 
-- Check if the ip address is available to be connected.
+- Check if the ip address is available to be connected.(hostname is temporarily unsupported)
 
 ## Usage
 
