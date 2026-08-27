@@ -18,17 +18,17 @@ If there exist multiple arguments with the same type,only the last one affect.
 
 	Customize the efficiency,that is,the number of valid files to process at once.
 	
-	Set `0` to process all files at once,default is `1`.
+	Set `0` to process all files at once,and set `-1` to process each file one by one,which is default.
 
 	**Warning**: Process too many files at once may cause the system crashing.
 
 - `/t time` 
 
 	Customize the time[s] to break after process a bulk of files which is set above.
-	
-	Set any negative numbers to process the files one by one,which is default.
 
-	`time` can be a float number.
+	`time` can be a float number,default is `1`.
+
+	This switch must be used with `/v`,and the `speed` should be positive.
 
 - `/w timeout` 
 
@@ -45,5 +45,3 @@ In addition, you can drag the target config file onto `checker.exe` to start the
 ## Upcoming Features 
 
 - Generate a list of available server ip address.
-
-- Add `/wait` switch to replace `/t neg`.

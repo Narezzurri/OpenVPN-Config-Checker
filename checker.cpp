@@ -9,62 +9,51 @@ int T = -1;
 char cmd[300];
 int a, b, c, d;
 int ping_cnt = 0;
-db sec_per_wait = 0;
+db sec_per_wait = 1;
 db ping_timeout = 1;
 
-inline int isint (const char *s)
+/* @brief read a non-negative integer from [s] and store it in [ans] */
+inline int get_int (const char *s, int &ans)
 {
 	for (int i = 0; s[i]; i++) if (!isdigit (s[i]))
-		return 0;
-	return 1;
+		return 1;
+	return sscanf (s, "%d", &ans) <= 0 || ans < 0;
 }
 
-inline int isfloat (const char *s)
+/* @brief read a non-negative decimal fraction from [s] and store it in [ans] */
+inline int get_float (const char *s, db &ans)
 {
 	for (int i = 0; s[i]; i++) if (!isdigit (s[i]) && s[i] != '.')
-		return 0;
-	return 1;
+		return 1;
+	return sscanf (s, "%lf", &ans) <= 0 || ans < 0;
 }
 
 signed main (signed argc, const char* argv[])
 {
 	vector<int> mark (argc);
-	mark[0] = 1;
 	for (int i = 1; i < argc; i++) if (argv[i][0] == '/') [&] ()
 	{
 		mark[i] = 1;
 		if (i == argc - 1 || [&] () -> bool
 		{
-			switch (argv[i][1])
-			{
-				case 'v':
-					if (!isint (argv[++i]) || sscanf (argv[i], "%d", &T) <= 0)
-						return 1;
-					break;
-				case 't':
-					if (!isfloat (argv[++i]) || sscanf (argv[i], "%lf", &sec_per_wait) <= 0)
-						return 1;
-					else if (sec_per_wait < 0)
-						fprintf (stderr, "Invalid parameter for argument %d : %s.Time(%s here) cannot be negative.", i - 1, argv[i - 1], argv[i]);
-					break;
-				case 'w':
-					if (!isfloat (argv[++i]) || sscanf (argv[i], "%lf", &ping_timeout) <= 0)
-						return 1;
-					break;
-				case 'n':
-					if (!isint (argv[++i]) || sscanf (argv[i], "%d", &ping_cnt) <= 0)
-						return 1;
-					break;
-				default:
-					fprintf (stderr, "Unrecognized parameter : %s.Skip\n", argv[i]);
-			}
+			string arg = argv[i];
+			if (arg == "/v")
+				return get_int (argv[++i], T);
+			else if (arg == "/t")
+				return get_float (argv[++i], sec_per_wait);
+			else if (arg == "/w")
+				return get_float (argv[++i], ping_timeout);
+			else if (arg == "/n")
+				return get_int (argv[++i], ping_cnt);
+			else
+				fprintf (stderr, "Unrecognized parameter : %s.Skip\n", argv[i]);
 			return 0;
 		}())
 		{
-			fprintf (stderr, "Miss parameter for argument %d : %s.Skip\n", i - 1, argv[i - 1]);
-			if (i == argc - 1)
-				return ;
 			i--;
+			fprintf (stderr, "Miss or Invalid parameter for argument %d : %s.Skip\n", i, argv[i]);
+			if (i == argc - 2)
+				return ;
 		}
 		mark[i] = 1;
 	} ();
@@ -90,20 +79,11 @@ signed main (signed argc, const char* argv[])
 				cin >> s;
 				string name = argv[i];
 				name = name.substr(name.find_last_of('\\') + 1).data();
-				if (T < 0)
-				{
-					if (ping_cnt)
-						sprintf (cmd, "start /wait \"%s\" cmd /c \"ping %s -w %d -n %d\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
-					else
-						sprintf (cmd, "start /wait \"%s\" cmd /c \"ping %s -w %d -t\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3));
-				}
+				sprintf (cmd, "start %s \"%s\" cmd /c \"ping %s -w %d ", ~T ? "" : "/wait", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
+				if (ping_cnt)
+					sprintf (cmd + strlen (cmd), "-n %d\"\n", ping_cnt);
 				else
-				{
-					if (ping_cnt)
-						sprintf (cmd, "start \"%s\" cmd /c \"ping %s -w %d -n %d\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
-					else
-						sprintf (cmd, "start \"%s\" cmd /c \"ping %s -w %d -t\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3));
-				}
+					sprintf (cmd + strlen (cmd), "-t\"\n");
 				system (cmd);
 				cnt++;
 				fprintf (stderr, "Done.\n");
