@@ -8,7 +8,7 @@ string s;
 int T = -1;
 char cmd[300];
 int a, b, c, d;
-int ping_cnt = 4;
+int ping_cnt = 0;
 db sec_per_wait = 0;
 db ping_timeout = 1;
 
@@ -21,7 +21,7 @@ inline int isint (const char *s)
 
 inline int isfloat (const char *s)
 {
-	for (int i = 0; s[i]; i++) if (isdigit (s[i]) && s[i] != '.')
+	for (int i = 0; s[i]; i++) if (!isdigit (s[i]) && s[i] != '.')
 		return 0;
 	return 1;
 }
@@ -37,15 +37,15 @@ signed main (signed argc, const char* argv[])
 		{
 			switch (argv[i][1])
 			{
+				case 'v':
+					if (!isint (argv[++i]) || sscanf (argv[i], "%d", &T) <= 0)
+						return 1;
+					break;
 				case 't':
 					if (!isfloat (argv[++i]) || sscanf (argv[i], "%lf", &sec_per_wait) <= 0)
 						return 1;
 					else if (sec_per_wait < 0)
-						printf ("Invalid parameter for argument %d : %s.Time(%s here) cannot be negative.", i - 1, argv[i - 1], argv[i]);
-					break;
-				case 'v':
-					if (!isint (argv[++i]) || sscanf (argv[i], "%d", &T) <= 0)
-						return 1;
+						fprintf (stderr, "Invalid parameter for argument %d : %s.Time(%s here) cannot be negative.", i - 1, argv[i - 1], argv[i]);
 					break;
 				case 'w':
 					if (!isfloat (argv[++i]) || sscanf (argv[i], "%lf", &ping_timeout) <= 0)
@@ -56,12 +56,12 @@ signed main (signed argc, const char* argv[])
 						return 1;
 					break;
 				default:
-					printf ("Unrecognized parameter : %s.Skip\n", argv[i]);
+					fprintf (stderr, "Unrecognized parameter : %s.Skip\n", argv[i]);
 			}
 			return 0;
 		}())
 		{
-			printf ("Miss parameter for argument %d : %s.Skip\n", i - 1, argv[i - 1]);
+			fprintf (stderr, "Miss parameter for argument %d : %s.Skip\n", i - 1, argv[i - 1]);
 			if (i == argc - 1)
 				return ;
 			i--;
@@ -73,10 +73,10 @@ signed main (signed argc, const char* argv[])
 	{
 		if (T > 0 && cnt && !(cnt % T))
 			Sleep (sec_per_wait * 1000);
-		printf ("%s: ", argv[i]);
+		fprintf (stderr, "%s: ", argv[i]);
 		s = argv[i];
-		if (s.length() < 5 || s.substr(s.length() - 5) != ".ovpn")
-			puts ("Unsupported file type.");
+		if (s.substr(s.find_last_of('.')) != ".ovpn")
+			fprintf (stderr, "Unsupported file type.\n");
 		else
 		{
 			cin.clear();
@@ -84,19 +84,29 @@ signed main (signed argc, const char* argv[])
 			cin >> s;
 			while (cin >> s && s != "remote");
 			if (s != "remote")
-				puts ("Server ip address not found.");
+				fprintf (stderr, "Server ip address not found.\n");
 			else
 			{
 				cin >> s;
 				string name = argv[i];
 				name = name.substr(name.find_last_of('\\') + 1).data();
 				if (T < 0)
-					sprintf (cmd, "title %s && ping %s -w %d -n %d", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
+				{
+					if (ping_cnt)
+						sprintf (cmd, "start /wait \"%s\" cmd /c \"ping %s -w %d -n %d\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
+					else
+						sprintf (cmd, "start /wait \"%s\" cmd /c \"ping %s -w %d -t\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3));
+				}
 				else
-					sprintf (cmd, "start \"%s\" cmd /c \"ping -t %s -w %d -n %d\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
+				{
+					if (ping_cnt)
+						sprintf (cmd, "start \"%s\" cmd /c \"ping %s -w %d -n %d\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3), ping_cnt);
+					else
+						sprintf (cmd, "start \"%s\" cmd /c \"ping %s -w %d -t\"\n", name.data(), s.data(), (int) (ping_timeout * 1e3));
+				}
 				system (cmd);
 				cnt++;
-				puts ("Done.");
+				fprintf (stderr, "Done.\n");
 			}
 		}
 	}

@@ -8,18 +8,24 @@
 			"request": "launch",
 			"program": "${fileDirname}/${fileBasenameNoExtension}.exe",
 			"args": [
-				"/n",
+				"/v",
 				"2",
+				"C:\\Users\\Administrator\\OpenVPN\\config\\p2p-client.ovpn",
 				"C:\\Users\\Administrator\\OpenVPN\\config\\p2p-server.ovpn",
 				"C:\\Users\\Administrator\\OpenVPN\\config\\static.key",
-				"C:\\Users\\Administrator\\OpenVPN\\config\\auth.txt"
+				"C:\\Users\\Administrator\\OpenVPN\\config\\auth.txt",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#88-UDP.ovpn",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#89-UDP.ovpn",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#33-UDP.ovpn",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#34-UDP.ovpn",
+				"c:\\Users\\Administrator\\OpenVPN\\config\\UnitedStates#35-UDP.ovpn"
 			],
 			"stopAtEntry": false,
 			"cwd": "${workspaceRoot}",
 			"environment": [],
 			"externalConsole": true,
 			"MIMode": "gdb",
-			"miDebuggerPath": "C:/Program Files (x86)/mingw64/bin/gdb.exe",
+			"miDebuggerPath": "D:/mingw64/bin/gdb.exe",
 			"preLaunchTask": "C/C++: g++.exe 生成活动文件",
 			"setupCommands": 
 			[

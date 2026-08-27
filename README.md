@@ -4,7 +4,7 @@ A practical Win32 software to check in batch the connection between the host and
 
 ## Function 
 
-- Check if the ip address is available to be connected.(hostname is temporarily unsupported) 
+- Check if the ip address is available to be connected.
 
 ## Usage 
 
@@ -12,19 +12,21 @@ A practical Win32 software to check in batch the connection between the host and
 
 ### Parameters 
 
+If there exist multiple arguments with the same type,only the last one affect.
+
 - `/v speed` 
 
 	Customize the efficiency,that is,the number of valid files to process at once.
 	
 	Set `0` to process all files at once,default is `1`.
 
-	**Warning**: Process too many files at once may cause the system to crash.
+	**Warning**: Process too many files at once may cause the system crashing.
 
 - `/t time` 
 
 	Customize the time[s] to break after process a bulk of files which is set above.
 	
-	Set any negative numbers to process the files one by one without starting a new window,which is default.
+	Set any negative numbers to process the files one by one,which is default.
 
 	`time` can be a float number.
 
@@ -35,10 +37,13 @@ A practical Win32 software to check in batch the connection between the host and
 	`timeout` can be a float number.
 
 - `/n count` 
-	Customize the number of ping(s) per file,default is `4`.
+
+	Customize the number of ping(s) per file,default is $ \infin $,that is,stop until you close the window.
 
 In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
 
 ## Upcoming Features 
 
 - Generate a list of available server ip address.
+
+- Add `/wait` switch to replace `/t neg`.
