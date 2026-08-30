@@ -4,7 +4,7 @@ A practical Win32 software to check in bulk the connection between the host and 
 
 ## Function 
 
-- Check if the ip address is available to be connected.
+- Check if the server address is available to be connected.
 
 ## Usage 
 
@@ -44,4 +44,8 @@ In addition, you can drag the target config file onto `checker.exe` to start the
 
 ## Upcoming Features 
 
-- Generate a list of available server ip address.
+- Generate a list of available server address.
+
+- Full command line argument
+
+- Customize subtask management
