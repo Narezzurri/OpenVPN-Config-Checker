@@ -34,28 +34,26 @@ signed main (signed argc, const char* argv[])
 	for (int i = 1; i < argc; i++) if (argv[i][0] == '/') [&] ()
 	{
 		mark[i] = 1;
+		int nxt = i;
 		if (i == argc - 1 || [&] () -> bool
 		{
 			string arg = argv[i];
-			if (arg == "/v")
-				return get_int (argv[++i], T);
-			else if (arg == "/t")
-				return get_float (argv[++i], sec_per_wait);
+			if (arg == "/t")
+				return get_int (argv[++nxt], T) || get_float (argv[++nxt], sec_per_wait);
 			else if (arg == "/w")
-				return get_float (argv[++i], ping_timeout);
+				return get_float (argv[++nxt], ping_timeout);
 			else if (arg == "/n")
-				return get_int (argv[++i], ping_cnt);
+				return get_int (argv[++nxt], ping_cnt);
 			else
-				fprintf (stderr, "Unrecognized parameter : %s.Skip\n", argv[i]);
+				fprintf (stderr, "Unrecognized argument : %s.Skip\n", argv[i]);
 			return 0;
 		}())
+			fprintf (stderr, "Miss or Invalid argument for argument %d : %s.Skip\n", i, argv[i]);
+		else
 		{
-			i--;
-			fprintf (stderr, "Miss or Invalid parameter for argument %d : %s.Skip\n", i, argv[i]);
-			if (i == argc - 2)
-				return ;
+			for (int j = nxt; j > i; j--)
+				mark[j] = 1;
 		}
-		mark[i] = 1;
 	} ();
 	int cnt = 0;
 	for (int i = 1; i < argc; i++) if (!mark[i])

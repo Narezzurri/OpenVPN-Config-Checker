@@ -1,6 +1,6 @@
 # OpenVPN-Config-Checker 
 
-A practical Win32 software to check in batch the connection between the host and remote VPN server,which is recorded in the OpenVPN config file (\*.ovpn).
+A practical Win32 software to check in bulk the connection between the host and the remote VPN server,which is recorded in the OpenVPN config file (\*.ovpn).
 
 ## Function 
 
@@ -14,21 +14,21 @@ A practical Win32 software to check in batch the connection between the host and
 
 If there exist multiple arguments with the same type,only the last one affect.
 
-- `/v speed` 
+- `/t period [time]` 
 
 	Customize the efficiency,that is,the number of valid files to process at once.
 	
 	Set `0` to process all files at once,and set `-1` to process each file one by one,which is default.
 
-	**Warning**: Process too many files at once may cause the system crashing.
-
-- `/t time` 
-
-	Customize the time[s] to break after process a bulk of files which is set above.
+	Otherwise,you can assign an extra parameter `time`.
+	
+	It decides the time to break after process a certain bulk of files.
 
 	`time` can be a float number,default is `1`.
 
-	This switch must be used with `/v`,and the `speed` should be positive.
+	If `time` is reserved,it'll reset whether it was assigned before.
+
+	**Warning**: Process too many files at once may cause the system crashing.
 
 - `/w timeout` 
 
