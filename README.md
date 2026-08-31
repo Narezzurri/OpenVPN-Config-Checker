@@ -38,7 +38,7 @@ If there exist multiple arguments with the same type,only the last one affect.
 
 - `/n count` 
 
-	Customize the number of ping(s) per file,default is $ \infin $,that is,stop until you close the window.
+	Customize the number of ping(s) per file,default is $\infty$,that is,stop until you close the window.
 
 In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
 
