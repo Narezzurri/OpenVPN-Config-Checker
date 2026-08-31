@@ -91,7 +91,6 @@ signed main (signed argc, const char* argv[])
 				string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
 				if (!~T)
 					cmd = "start /wait" + cmd.substr(5);
-				cout << cmd << endl;
 				system (cmd.data());
 				cnt++;
 				fputs ("Done.\n", stderr);
