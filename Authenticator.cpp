@@ -62,5 +62,7 @@ int main (int argc, char* argv[])
 		cnt++;
 	}
 	cerr << cnt << " files appended successfully." << endl;
+	freopen ("CON", "r", stdin);
+	getchar ();
 	return 0;
 }
