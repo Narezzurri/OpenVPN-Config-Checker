@@ -1,3 +1,7 @@
+No collaborators yet.
+
+Welcome to join and contribute issues.
+
 # OpenVPN-Config-Helper 
 
 A practical Win32 software to check in bulk the connection between the host and the remote VPN server,which is recorded in the OpenVPN config file (\*.ovpn).
