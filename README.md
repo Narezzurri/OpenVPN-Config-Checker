@@ -46,6 +46,4 @@ In addition, you can drag the target config file onto `checker.exe` to start the
 
 - Generate a list of available server address.
 
-- Full command line argument
-
 - Customize subtask management

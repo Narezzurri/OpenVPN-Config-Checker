@@ -42,11 +42,11 @@ signed main (signed argc, const char* argv[])
 		if (i == argc - 1 || [&] () -> bool
 		{
 			string arg = argv[i] + 1;
-			if (arg == "t")
+			if (arg == "t" || arg == "time")
 				return get_int (argv[++nxt], T) && get_float (argv[++nxt], sec_per_wait);
-			else if (arg == "w")
+			else if (arg == "w" || arg == "wait")
 				return get_float (argv[++nxt], ping_timeout);
-			else if (arg == "n")
+			else if (arg == "n" || arg == "number")
 				return get_int (argv[++nxt], ping_cnt);
 			else
 			{
