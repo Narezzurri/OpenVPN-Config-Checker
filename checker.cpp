@@ -32,7 +32,7 @@ inline string quote (string s)
 	return '"' + s + '"';
 }
 
-signed main (signed argc, const char* argv[])
+int main (int argc, const char* argv[])
 {
 	vector<int> mark (argc);
 	for (int i = 1; i < argc; i++) if (argv[i][0] == '/') [&] ()
@@ -66,7 +66,7 @@ signed main (signed argc, const char* argv[])
 	{
 		if (T > 0 && cnt && !(cnt % T))
 			Sleep (sec_per_wait * 1000);
-		cerr << argv[i] << ": ";
+		cerr << argv[i] << " : ";
 		string addr = argv[i];
 		if (addr.substr(addr.find_last_of('.')) != ".ovpn")
 			fputs ("Unsupported file type.\n", stderr);
@@ -97,7 +97,7 @@ signed main (signed argc, const char* argv[])
 			}
 		}
 	}
-	cerr << cnt << " files checked successfully" << endl;
+	cerr << cnt << " files checked successfully." << endl;
 	freopen ("CON", "r", stdin);
 	getchar ();
 	return 0;

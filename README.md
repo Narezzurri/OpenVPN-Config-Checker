@@ -41,9 +41,3 @@ If there exist multiple arguments with the same type,only the last one affect.
 	Customize the number of ping(s) per file,default is $\infty$,that is,stop until you close the window.
 
 In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
-
-## Upcoming Features 
-
-- Generate a list of available server address.
-
-- Customize subtask management
