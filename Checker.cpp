@@ -53,7 +53,7 @@ int main (int argc, const char* argv[])
 		return 0;
 	}())
 	{
-		cout << string {
+		cout << endl << string {
 			#embed	"CheckerHelp.txt"
 		} << endl;
 		return 0;
