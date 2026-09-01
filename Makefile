@@ -3,7 +3,7 @@ DEL		= del
 EXES	= Checker.exe Auth.exe
 INCLUDE	= lib.cpp
 
-%.exe : %.cpp Makefile
+%.exe : %.cpp %Help.txt Makefile
 	g++ $*.cpp $(INCLUDE) -o $*.exe -g
 
 # Commands
