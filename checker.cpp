@@ -34,6 +34,20 @@ inline string quote (string s)
 
 int main (int argc, const char* argv[])
 {
+	if (argc == 1 || [&] ()
+	{
+		for (int i = 1; i < argc; i++)
+		{
+			string arg = argv[i];
+			if (arg == "--help" || arg == "/?" || arg == "/help")
+				return 1;
+		}
+		return 0;
+	}())
+	{
+		system ("type CheckerHelp.txt");
+		return 0;
+	}
 	vector<int> mark (argc);
 	for (int i = 1; i < argc; i++) if (argv[i][0] == '/') [&] ()
 	{

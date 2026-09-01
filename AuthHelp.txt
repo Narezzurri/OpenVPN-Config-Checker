@@ -1,0 +1,9 @@
+OpenVPN Config Authenticator v1.0
+
+Function 
+	Append login credentials to OpenVPN config file(s) (*.ovpn).
+	More precisely,it can append the filename of
+	the crdential (default is auth.txt) to every "auth-user-pass" part.
+
+Usage
+	> Auth config1.ovpn config2.ovpn ... 

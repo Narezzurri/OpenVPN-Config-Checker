@@ -8,6 +8,20 @@ string content = "auth.txt";
 
 int main (int argc, char* argv[])
 {
+	if (argc == 1 || [&] ()
+	{
+		for (int i = 1; i < argc; i++)
+		{
+			string arg = argv[i];
+			if (arg == "--help" || arg == "/?" || arg == "/help")
+				return 1;
+		}
+		return 0;
+	}())
+	{
+		system ("type AuthHelp.txt");
+		return 0;
+	}
 	int cnt = 0;
 	for (int i = 1; i < argc; i++)
 	{

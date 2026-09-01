@@ -1,57 +1,25 @@
-No collaborators yet.
+[![GitHub release](https://img.shields.io/github/v/release/Narezzurri/OpenVPN-Config-Helper)](https://github.com/Narezzurri/OpenVPN-Config-Helper/releases)
+[![GitHub license](https://img.shields.io/github/license/Narezzurri/OpenVPN-Config-Helper)](https://github.com/Narezzurri/OpenVPN-Config-Helper/blob/main/LICENSE)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-yellow.svg?style=flat)](http://makeapullrequest.com)
+<!-- [![GitHub downloads](https://img.shields.io/github/downloads/Narezzurri/OpenVPN-Config-Helper/total)](https://github.com/Narezzurri/OpenVPN-Config-Helper/releases) -->
+<!-- ![GitHub contributors](https://img.shields.io/github/contributors/Narezzurri/OpenVPN-Config-Helper) -->
 
-Welcome to join and contribute issues.
+## OpenVPN-Config-Helper: Batch OpenVPN Configuration Manager
 
-# Checker 
+Tired of deploying for dozens of configs one by one, or adding login credentials to each file by hand?  
 
-A command-line-based Win32 software to check in bulk the connection between the host and the remote VPN server which is recorded in the OpenVPN config files (\*.ovpn).
+This tool automates both tasks, making bulk OpenVPN deployment simple and reliable.
 
-## Usage 
+## Contributing
 
-`> checker <param1> <param2> config1.ovpn config2.ovpn ...` 
+~~There's no collaborators yet.~~ 
 
-### Arguments 
+Contributions, bug reports, and feature requests are all welcome.
 
-If there exist multiple arguments with the same type,only the last one affect.
+If you're new to open source, look for issues tagged [`good first issue`]()
 
-- `/t period [time]` 
+# Legal Disclaimer
+This tool is designed for educational and administrative purposes only. It is intended to help users manage OpenVPN configurations they are legally authorized to use.
 
-	Customize the efficiency,that is,the number of valid files to process at once.
-	
-	Set `0` to process all files at once,and set `-1` to process each file one by one,which is default.
-
-	Otherwise,you can assign an extra parameter `time`.
-	
-	It decides the time to break after process a certain bulk of files.
-
-	`time` can be a float number,default is `1`.
-
-	If `time` is reserved,it'll reset whether it was assigned before.
-
-	**Warning**: Process too many files at once may cause the system crashing.
-
-- `/w timeout` 
-
-	Customize the timeout[s] for every ping,default is `1`.
-
-	`timeout` can be a float number.
-
-- `/n count` 
-
-	Customize the number of ping(s) per file,default is $\infty$,that is,stop until you close the window.
-
-In addition, you can drag the target config file onto `checker.exe` to start the programme by default settings.
-
-***
-
-# Authenticator
-
-A command-line-based Win32 software to append login credential file to OpenVPN config files (\*.ovpn).
-
-## Usage
-
-`> Auth config1.ovpn config2.ovpn ...` 
-
-### Arguments
-
-The default login credential file is `auth.txt` 
+Users are solely responsible for ensuring their use of this software and any associated VPN services complies with all applicable local laws and regulations. The author assumes no liability for any misuse of this tool.
