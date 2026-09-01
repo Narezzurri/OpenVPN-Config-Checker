@@ -32,6 +32,14 @@ inline string quote (string s)
 	return '"' + s + '"';
 }
 
+string extract (string s, char c)
+{
+	if (s.find_last_of (c) == string::npos)
+		return "";
+	else
+		return s.substr (0, s.find_last_of (c));
+}
+
 int main (int argc, const char* argv[])
 {
 	if (argc == 1 || [&] ()
@@ -81,13 +89,14 @@ int main (int argc, const char* argv[])
 		if (T > 0 && cnt && !(cnt % T))
 			Sleep (sec_per_wait * 1000);
 		cerr << argv[i] << " : ";
-		string addr = argv[i];
-		if (addr.substr(addr.find_last_of('.')) != ".ovpn")
+		string filename = argv[i];
+		if (extract (filename, '.') != ".ovpn")
 			fputs ("Unsupported file type.\n", stderr);
 		else
 		{
 			cin.clear();
 			freopen (argv[i], "r", stdin);
+			string addr;
 			cin >> addr;
 			while (cin >> addr && addr != "remote");
 			if (addr != "remote")
@@ -95,14 +104,12 @@ int main (int argc, const char* argv[])
 			else
 			{
 				cin >> addr;				// Server address
-				string filename = argv[i];
-				filename = filename.substr(filename.find_last_of('\\') + 1).data();
 				string ping = "ping " + addr + " -w " + to_string ((int) (ping_timeout * 1e3));	// Complete ping command
 				if (ping_cnt)
 					ping += " -n " + to_string (ping_cnt);
 				else
 					ping += " -t";
-				string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
+				string cmd = "start " + quote (extract (filename, '\\')) + " cmd /c " + quote (ping);
 				if (!~T)
 					cmd = "start /wait" + cmd.substr(5);
 				system (cmd.data());
