@@ -12,6 +12,21 @@ int ping_cnt = 0;
 db sec_per_wait = 1;
 db ping_timeout = 1;
 
+inline vector<string> Search (string filename)
+{
+	vector<string> ans;
+	WIN32_FIND_DATAA file;
+	HANDLE handle = FindFirstFileA (filename.c_str(), &file);
+	if (handle != INVALID_HANDLE_VALUE)
+	{
+		do if (!(file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			ans.emplace_back(file.cFileName);
+		while (FindNextFileA (handle, &file));
+	}
+	FindClose (handle);
+	return ans;
+}
+
 int main (int argc, const char* argv[])
 {
 	if (argc == 1 || [&] ()
@@ -62,35 +77,38 @@ int main (int argc, const char* argv[])
 	{
 		if (T > 0 && cnt && !(cnt % T))
 			Sleep (sec_per_wait * 1000);
-		cerr << argv[i] << " : ";
-		string filename = argv[i];
-		if (extract (filename, '.') != ".ovpn")
-			fputs ("Unsupported file type.\n", stderr);
-		else
+		vector<string> files = Search (argv[i]);
+		for (auto filename : files)
 		{
-			cin.clear();
-			freopen (argv[i], "r", stdin);
-			string addr;
-			cin >> addr;
-			while (cin >> addr && addr != "remote");
-			if (addr != "remote")
-				fputs ("Server ip address not found.\n", stderr);
+			cerr << filename << " : ";
+			if (extract (filename, '.') != ".ovpn")
+				fputs ("Unsupported file type.\n", stderr);
 			else
 			{
-				cin >> addr;				// Server address
-				string ping = "ping " + addr + " -w " + to_string ((int) (ping_timeout * 1e3));	// Complete ping command
-				if (ping_cnt)
-					ping += " -n " + to_string (ping_cnt);
+				cin.clear();
+				freopen (filename.c_str(), "r", stdin);
+				string addr;
+				cin >> addr;
+				while (cin >> addr && addr != "remote");
+				if (addr != "remote")
+					fputs ("Server ip address not found.\n", stderr);
 				else
-					ping += " -t";
-				if (string s = extract (filename, '\\'); !s.empty())
-					filename = s;
-				string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
-				if (!~T)
-					cmd = "start /wait" + cmd.substr(5);
-				system (cmd.data());
-				cnt++;
-				fputs ("Done.\n", stderr);
+				{
+					cin >> addr;				// Server address
+					string ping = "ping " + addr + " -w " + to_string ((int) (ping_timeout * 1e3));	// Complete ping command
+					if (ping_cnt)
+						ping += " -n " + to_string (ping_cnt);
+					else
+						ping += " -t";
+					if (string s = extract (filename, '\\'); !s.empty())
+						filename = s;
+					string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
+					if (!~T)
+						cmd = "start /wait" + cmd.substr(5);
+					system (cmd.c_str());
+					cnt++;
+					fputs ("Done.\n", stderr);
+				}
 			}
 		}
 	}
