@@ -34,10 +34,10 @@ inline string quote (string s)
 
 string extract (string s, char c)
 {
-	if (s.find_last_of (c) == string::npos)
+	if (int idx = s.find_last_of (c); idx == string::npos)
 		return "";
 	else
-		return s.substr (0, s.find_last_of (c));
+		return s.substr (idx);
 }
 
 int main (int argc, const char* argv[])
@@ -111,7 +111,9 @@ int main (int argc, const char* argv[])
 					ping += " -n " + to_string (ping_cnt);
 				else
 					ping += " -t";
-				string cmd = "start " + quote (extract (filename, '\\')) + " cmd /c " + quote (ping);
+				if (string s = extract (filename, '\\'); !s.empty())
+					filename = s;
+				string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
 				if (!~T)
 					cmd = "start /wait" + cmd.substr(5);
 				system (cmd.data());
