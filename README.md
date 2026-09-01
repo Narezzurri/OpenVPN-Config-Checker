@@ -5,7 +5,9 @@
 <!-- [![GitHub downloads](https://img.shields.io/github/downloads/Narezzurri/OpenVPN-Config-Helper/total)](https://github.com/Narezzurri/OpenVPN-Config-Helper/releases) -->
 <!-- ![GitHub contributors](https://img.shields.io/github/contributors/Narezzurri/OpenVPN-Config-Helper) -->
 
-# OpenVPN-Config-Helper: Batch OpenVPN Configuration Manager
+# OpenVPN-Config-Manager
+
+> Batch configuration management for OpenVPN - test, inject, and deploy with ease.
 
 Tired of deploying for dozens of configs one by one, or adding login credentials to each file by hand?  
 
