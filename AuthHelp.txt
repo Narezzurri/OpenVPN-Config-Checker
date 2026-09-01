@@ -1,4 +1,6 @@
-OpenVPN Config Authenticator v1.0
+
+OpenVPN Config Authenticator v1.0 (c) 2026 Narezzurri - MIT Licence 
+Repository: https://github.com/Narezzurri/OpenVPN-Config-Helper 
 
 Function 
 	Append login credentials to OpenVPN config file(s) (*.ovpn).
