@@ -1,4 +1,6 @@
+#include	<windows.h>
 #include	<sstream>
+#include	<vector>
 #include	"lib.h"
 using namespace std;
 
@@ -27,4 +29,19 @@ string extract (string s, char c)
 		return "";
 	else
 		return s.substr (idx);
+}
+
+vector<string> Search (string filename)
+{
+	vector<string> ans;
+	WIN32_FIND_DATAA file;
+	HANDLE handle = FindFirstFileA (filename.c_str(), &file);
+	if (handle != INVALID_HANDLE_VALUE)
+	{
+		do if (!(file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			ans.emplace_back(file.cFileName);
+		while (FindNextFileA (handle, &file));
+	}
+	FindClose (handle);
+	return ans;
 }

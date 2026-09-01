@@ -10,3 +10,5 @@ int get_float (const char *s, db &ans);
 string quote (string s);
 /* @brief extract a substring from [s] up to the last occurrence of [c] (included) */
 string extract (string s, char c);
+/* @brief search for files matching the wildcard */
+vector<string> Search (string filename);

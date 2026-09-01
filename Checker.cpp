@@ -12,21 +12,6 @@ int ping_cnt = 0;
 db sec_per_wait = 1;
 db ping_timeout = 1;
 
-inline vector<string> Search (string filename)
-{
-	vector<string> ans;
-	WIN32_FIND_DATAA file;
-	HANDLE handle = FindFirstFileA (filename.c_str(), &file);
-	if (handle != INVALID_HANDLE_VALUE)
-	{
-		do if (!(file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			ans.emplace_back(file.cFileName);
-		while (FindNextFileA (handle, &file));
-	}
-	FindClose (handle);
-	return ans;
-}
-
 int main (int argc, const char* argv[])
 {
 	if (argc == 1 || [&] ()
