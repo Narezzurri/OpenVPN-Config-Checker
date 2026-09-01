@@ -2,6 +2,7 @@
 #include	<iostream>
 #include	<sstream>
 #include	<vector>
+#include	"lib.h"
 using namespace std;
 using db = double;
 
@@ -10,35 +11,6 @@ int a, b, c, d;
 int ping_cnt = 0;
 db sec_per_wait = 1;
 db ping_timeout = 1;
-
-/* @brief read a non-negative integer from [s] and store it in [ans] */
-inline int get_int (const char *s, int &ans)
-{
-	for (int i = 0; s[i]; i++) if (!isdigit (s[i]))
-		return 1;
-	return stringstream (s) >> ans && ans >= 0;
-}
-
-/* @brief read a non-negative decimal fraction from [s] and store it in [ans] */
-inline int get_float (const char *s, db &ans)
-{
-	for (int i = 0; s[i]; i++) if (!isdigit (s[i]) && s[i] != '.')
-		return 1;
-	return stringstream (s) >> ans && ans >= 0;
-}
-
-inline string quote (string s)
-{
-	return '"' + s + '"';
-}
-
-string extract (string s, char c)
-{
-	if (int idx = s.find_last_of (c); idx == string::npos)
-		return "";
-	else
-		return s.substr (idx);
-}
 
 int main (int argc, const char* argv[])
 {
