@@ -53,7 +53,9 @@ int main (int argc, const char* argv[])
 		return 0;
 	}())
 	{
-		system ("type CheckerHelp.txt");
+		cout << string {
+			#embed	"CheckerHelp.txt"
+		} << endl;
 		return 0;
 	}
 	vector<int> mark (argc);
