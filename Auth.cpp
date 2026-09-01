@@ -19,7 +19,7 @@ int main (int argc, char* argv[])
 		return 0;
 	}())
 	{
-		cout << string {
+		cout << endl << string {
 			#embed	"AuthHelp.txt"
 		} << endl;
 		return 0;
