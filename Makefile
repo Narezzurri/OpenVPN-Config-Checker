@@ -1,14 +1,19 @@
-MAKE	= make -r -j8
+MAKE	= make -r
+DEL		= del
 EXES	= Checker.exe Auth.exe
 INCLUDE	= lib.cpp
 
 %.exe : %.cpp Makefile
-	g++ $*.cpp $(INCLUDE) -o $*.exe
+	g++ $*.cpp $(INCLUDE) -o $*.exe -g
 
 # Commands
 
 default :
-	$(MAKE) all
+	$(MAKE) all -j8
 
 all :
 	$(MAKE) $(EXES)
+
+clean :
+	$(DEL) *.exe
+	$(DEL) *.ovpn
