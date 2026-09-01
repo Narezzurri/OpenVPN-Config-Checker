@@ -19,7 +19,9 @@ int main (int argc, char* argv[])
 		return 0;
 	}())
 	{
-		system ("type AuthHelp.txt");
+		cout << endl << string {
+			#embed	"AuthHelp.txt"
+		} << endl;
 		return 0;
 	}
 	int cnt = 0;
