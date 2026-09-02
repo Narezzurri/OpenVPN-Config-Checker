@@ -1,6 +1,6 @@
 VERSION		= 2.0.1
 MAKE		= make -r
-DEL			= del
+DEL			= del /s
 COPY		= copy
 EXES		= Checker.exe Auth.exe
 INCLUDE		= lib.cpp
