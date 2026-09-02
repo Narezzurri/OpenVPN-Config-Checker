@@ -2,13 +2,15 @@
 using namespace std;
 using db = double;
 
-/* @brief read a non-negative integer from [s] and store it in [ans] */
+/* @brief Read a non-negative integer from [s] and store it in [ans] */
 int get_int (const char *s, int &ans);
-/* @brief read a non-negative decimal fraction from [s] and store it in [ans] */
+/* @brief Read a non-negative decimal fraction from [s] and store it in [ans] */
 int get_float (const char *s, db &ans);
-/* @brief wrap a string with quotes */
+/* @brief Wrap a string with quotes */
 string quote (string s);
-/* @brief extract a substring from [s] up to the last occurrence of [c] (included) */
+/* @brief Extract a substring from [s] up to the last occurrence of [c] (included) */
 string extract (string s, char c);
-/* @brief search for files matching the wildcard */
+/* @brief Search for files matching the wildcard */
 vector<string> Search (string filename);
+/* @brief Detect "--help" "/?" "/help" in the arguments */
+int HelpDetected (int argc, const char* argv[]);
