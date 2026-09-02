@@ -1,21 +1,18 @@
-﻿!ifndef VERSION
-	!define VERSION 0.0.0
-!endif
-!define NAME "OpenVPN Config Manager"
+﻿!define NAME "OpenVPN Config Manager"
 !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 
 !include "MUI2.nsh"
 
 Name "${NAME}"
-OutFile "OpenVPNConfigManagerSetup-${VERSION}.exe"
+OutFile "OpenVPNConfigManagerSetup-@PROJECT_VERSION@.exe"
 InstallDir "$PROGRAMFILES32\${NAME}" 
 RequestExecutionLevel "admin"
 
 ; Installer Page
-!define MUI_ICON "rc\InstallerLight.ico"
-!define MUI_UNICON "rc\UninstallerLight.ico"
+!define MUI_ICON "@CMAKE_CURRENT_SOURCE_DIR@/rc/InstallerLight.ico"
+!define MUI_UNICON "@CMAKE_CURRENT_SOURCE_DIR@/rc/UninstallerLight.ico"
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "LICENSE"
+!insertmacro MUI_PAGE_LICENSE "@CMAKE_CURRENT_SOURCE_DIR@/LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
 ShowInstDetails show
 !insertmacro MUI_PAGE_INSTFILES
@@ -39,18 +36,19 @@ ShowUnInstDetails show
 Section "install"
 ; Program files
 SetOutPath "$INSTDIR"
-File "Checker\Checker.exe"
-File "Authenticator\Auth.exe"
-File "LICENSE"
+File "Checker.exe"
+File "Auth.exe"
+File "@CMAKE_CURRENT_SOURCE_DIR@\LICENSE"
 WriteUninstaller "Uninstall.exe"
 CreateDirectory "$SMPROGRAMS\${NAME}"
-CreateShortCut "$SMPROGRAMS\${NAME}\${NAME}.lnk" $INSTDIR\Uninstall.exe
+CreateShortCut "$SMPROGRAMS\${NAME}\OpenVPN Config Checker.lnk" $INSTDIR\Checker.exe
+CreateShortCut "$SMPROGRAMS\${NAME}\OpenVPN Config Authenticator.lnk" $INSTDIR\Auth.exe
 CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall.lnk" $INSTDIR\Uninstall.exe
 ; Register in the Control Panel
 SetRegView 32
 WriteRegStr "HKLM" "${UNINST_KEY}" "DisplayName" "${NAME}"
 WriteRegStr "HKLM" "${UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
-WriteRegStr "HKLM" "${UNINST_KEY}" "DisplayVersion" "${VERSION}"
+WriteRegStr "HKLM" "${UNINST_KEY}" "DisplayVersion" "@PROJECT_VERSION@"
 WriteRegStr "HKLM" "${UNINST_KEY}" "Publisher" "Narezzurri"
 WriteRegStr "HKLM" "${UNINST_KEY}" "HelpLink" "https://github.com/Narezzurri/OpenVPN-Config-Manager"
 SectionEnd
