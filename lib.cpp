@@ -45,3 +45,16 @@ vector<string> Search (string filename)
 	FindClose (handle);
 	return ans;
 }
+
+int HelpDetected (int argc, const char* argv[])
+{
+	if (argc == 1)
+		return 1;
+	for (int i = 1; i < argc; i++)
+	{
+		string arg = argv[i];
+		if (arg == "--help" || arg == "/?" || arg == "/help")
+			return 1;
+	}
+	return 0;
+}
