@@ -67,8 +67,8 @@ add_custom_target (
 # set (CPACK_NSIS_DISPLAY_NAME "${CPACK_PACKAGE_NAME}")
 # set (CPACK_NSIS_PACKAGE_NAME "${CPACK_PACKAGE_NAME}")
 # set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
-# set (CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/rc/InstallerLight.ico")
-# set (CPACK_NSIS_MUI_UNICON "${CMAKE_SOURCE_DIR}/rc/UninstallerLight.ico")
+# set (CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}/resource/InstallerLight.ico")
+# set (CPACK_NSIS_MUI_UNICON "${CMAKE_SOURCE_DIR}/resource/UninstallerLight.ico")
 # set (CPACK_PACKAGE_FILE_NAME "OpenVPNConfigManagerSetup-${CPACK_PACKAGE_VERSION}")
 
 # list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
