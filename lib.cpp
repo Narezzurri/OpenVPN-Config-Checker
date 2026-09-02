@@ -1,3 +1,4 @@
+#include	"resource.h"
 #include	<windows.h>
 #include	<sstream>
 #include	<vector>
@@ -57,4 +58,19 @@ int HelpDetected (int argc, const char* argv[])
 			return 1;
 	}
 	return 0;
+}
+
+void DisplayIcons (void)
+{
+	HWND hwnd = GetConsoleWindow ();
+	if (hwnd)
+	{
+		HICON hIcon = LoadIcon (GetModuleHandle (NULL), MAKEINTRESOURCE (LIGHTICON));
+		if (hIcon)
+			SendMessage (hwnd, WM_SETICON, ICON_SMALL, (LPARAM) hIcon);
+		hIcon = LoadIcon (GetModuleHandle (NULL), MAKEINTRESOURCE (DARKICON));
+		if (hIcon)
+			SendMessage (hwnd, WM_SETICON, ICON_BIG, (LPARAM) hIcon);
+	}
+	return ;
 }

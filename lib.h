@@ -14,3 +14,5 @@ string extract (string s, char c);
 vector<string> Search (string filename);
 /* @brief Detect "--help" "/?" "/help" in the arguments */
 int HelpDetected (int argc, const char* argv[]);
+/* @brief Display the application icons */
+void DisplayIcons (void);

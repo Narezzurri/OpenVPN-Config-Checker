@@ -9,6 +9,7 @@ string content = "auth.txt";
 
 int main (int argc, const char* argv[])
 {
+	DisplayIcons ();
 	if (HelpDetected (argc, argv))
 	{
 		cout << endl << string {

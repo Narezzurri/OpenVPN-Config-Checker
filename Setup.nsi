@@ -1,10 +1,10 @@
-﻿!include "MUI2.nsh"
-
-!ifndef VERSION
+﻿!ifndef VERSION
 	!define VERSION 0.0.0
 !endif
 !define NAME "OpenVPN Config Manager"
 !define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
+
+!include "MUI2.nsh"
 
 Name "${NAME}"
 OutFile "OpenVPNConfigManagerSetup-${VERSION}.exe"
@@ -12,6 +12,8 @@ InstallDir "$PROGRAMFILES32\${NAME}"
 RequestExecutionLevel "admin"
 
 ; Installer Page
+!define MUI_ICON "rc\InstallerLight.ico"
+!define MUI_UNICON "rc\UninstallerLight.ico"
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
@@ -37,8 +39,8 @@ ShowUnInstDetails show
 Section "install"
 ; Program files
 SetOutPath "$INSTDIR"
-File "Checker.exe"
-File "Auth.exe"
+File "Checker\Checker.exe"
+File "Authenticator\Auth.exe"
 File "LICENSE"
 WriteUninstaller "Uninstall.exe"
 CreateDirectory "$SMPROGRAMS\${NAME}"

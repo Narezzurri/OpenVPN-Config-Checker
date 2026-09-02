@@ -1,0 +1,33 @@
+#include	"resource.h"
+#include	<windows.h>
+
+LIGHTICON	ICON	"../rc/CheckerLight.ico"
+DARKICON	ICON	"../rc/CheckerDark.ico"
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION		1,3,0,0
+PRODUCTVERSION	PRODUCT_VER_MAJOR,PRODUCT_VER_MINOR,PRODUCT_VER_PATCH,0
+FILEOS			VOS_NT_WINDOWS32
+FILETYPE		VFT_APP
+{
+	BLOCK "StringFileInfo"
+	{
+		BLOCK "000004b0"
+		{
+			VALUE	"Comments",			""
+			VALUE	"CompanyName",		"Narezzurri"
+			VALUE	"FileDescription",	"OpenVPN Config Checker"
+			VALUE	"FileVersion",		"1.3.0"
+			VALUE	"InternalName",		"Checker"
+			VALUE	"LegalCopyright",	"Copyright (C) 2026 Narezzurri. All rights reserved."
+			VALUE	"LegalTrademarks",	""
+			VALUE	"OriginalFilename",	"Checker.exe"
+			VALUE	"ProductName",		"OpenVPN Config Manager"
+			VALUE	"ProductVersion",	"2.1.0"
+		}
+	}
+	BLOCK "VarFileInfo"
+	{
+		VALUE	"Translation",0x0000,0x04b0					// Language Neutral
+	}
+}
