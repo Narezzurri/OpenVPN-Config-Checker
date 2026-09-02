@@ -14,16 +14,7 @@ db ping_timeout = 1;
 
 int main (int argc, const char* argv[])
 {
-	if (argc == 1 || [&] ()
-	{
-		for (int i = 1; i < argc; i++)
-		{
-			string arg = argv[i];
-			if (arg == "--help" || arg == "/?" || arg == "/help")
-				return 1;
-		}
-		return 0;
-	}())
+	if (HelpDetected (argc, argv))
 	{
 		cout << endl << string {
 			#embed	"CheckerHelp.txt"
