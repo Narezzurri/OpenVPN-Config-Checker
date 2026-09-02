@@ -7,7 +7,7 @@ using namespace std;
 
 string content = "auth.txt";
 
-int main (int argc, char* argv[])
+int main (int argc, const char* argv[])
 {
 	if (HelpDetected (argc, argv))
 	{
