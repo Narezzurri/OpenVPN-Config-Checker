@@ -15,6 +15,7 @@ int main (int argc, const char* argv[])
 		cout << endl << string {
 			#embed	"AuthHelp.txt"
 		} << endl;
+		getchar ();
 		return 0;
 	}
 	int cnt = 0;

@@ -21,6 +21,7 @@ int main (int argc, const char* argv[])
 		cout << endl << string {
 			#embed	"CheckerHelp.txt"
 		} << endl;
+		getchar ();
 		return 0;
 	}
 	vector<int> mark (argc);
