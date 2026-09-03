@@ -21,7 +21,6 @@ function (split VERSION MAJOR MINOR PATCH)
 	set (${PATCH} ${patch} PARENT_SCOPE)
 endfunction ()
 
-
 cmake_minimum_required (VERSION 3.12)
 project (OpenVPN-Config-Manager VERSION 2.1.0 LANGUAGES CXX HOMEPAGE_URL https://github.com/Narezzurri/OpenVPN-Config-Manager)
 
@@ -50,7 +49,7 @@ enable_testing ()
 add_test (NAME Checker_Help1 COMMAND Checker --help)
 add_test (NAME Checker_Help2 COMMAND Checker /help)
 add_test (NAME Checker_Help3 COMMAND Checker /?)
-add_test (NAME Checker_Function COMMAND Checker Sample/Sample1.ovpn Sample/Sample2.ovpn Sample/Sample3.ovpn Sample/Sample4.ovpn /w 2 /t 2 4)
+add_test (NAME Checker_Function COMMAND Checker Samples/Sample1.ovpn Samples/Sample2.ovpn Samples/Sample3.ovpn Samples/Sample4.ovpn /w 2 /t 2 4)
 
 # Install package
 
