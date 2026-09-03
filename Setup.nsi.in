@@ -1,0 +1,70 @@
+﻿!define NAME "OpenVPN Config Manager"
+!define UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
+
+!include "MUI2.nsh"
+
+Name "${NAME}"
+OutFile "OpenVPNConfigManagerSetup-@PROJECT_VERSION@.exe"
+InstallDir "$PROGRAMFILES32\${NAME}" 
+RequestExecutionLevel "admin"
+
+; Installer Page
+!define MUI_ICON "@CMAKE_CURRENT_SOURCE_DIR@/resource/InstallerLight.ico"
+!define MUI_UNICON "@CMAKE_CURRENT_SOURCE_DIR@/resource/UninstallerLight.ico"
+!insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_LICENSE "@CMAKE_CURRENT_SOURCE_DIR@/LICENSE"
+!insertmacro MUI_PAGE_DIRECTORY
+ShowInstDetails show
+!insertmacro MUI_PAGE_INSTFILES
+!define MUI_FINISHPAGE_NOAUTOCLOSE
+!insertmacro MUI_PAGE_FINISH
+
+; Uninstaller Page
+!insertmacro MUI_UNPAGE_WELCOME
+!define MUI_UNCONFIRMPAGE_TEXT_TOP "This wizard will completely uninstall ${NAME} and all of its components from this computer."
+!define MUI_UNCONFIRMPAGE_TEXT_LOCATION "Uninstall Directory"
+!insertmacro MUI_UNPAGE_CONFIRM
+ShowUnInstDetails show
+!insertmacro MUI_UNPAGE_INSTFILES
+!define MUI_UNFINISHPAGE_NOAUTOCLOSE
+!define MUI_FINISHPAGE_LINK "Propose issues on Github"
+!define MUI_FINISHPAGE_LINK_LOCATION "https://github.com/Narezzurri/OpenVPN-Config-Manager/issues"
+!insertmacro Mui_Unpage_Finish
+
+!insertmacro Mui_Language "English"
+
+Section "install"
+; Program files
+SetOutPath "$INSTDIR"
+File "Checker.exe"
+File "Auth.exe"
+File "@CMAKE_CURRENT_SOURCE_DIR@\LICENSE"
+WriteUninstaller "Uninstall.exe"
+; Sample files
+SetOutPath "$INSTDIR\Samples"
+File "@CMAKE_CURRENT_SOURCE_DIR@\Samples\Sample1.ovpn"
+File "@CMAKE_CURRENT_SOURCE_DIR@\Samples\Sample2.ovpn"
+File "@CMAKE_CURRENT_SOURCE_DIR@\Samples\Sample3.ovpn"
+File "@CMAKE_CURRENT_SOURCE_DIR@\Samples\Sample4.ovpn"
+; Start Menu
+CreateDirectory "$SMPROGRAMS\${NAME}"
+CreateShortCut "$SMPROGRAMS\${NAME}\OpenVPN Config Checker.lnk" $INSTDIR\Checker.exe
+CreateShortCut "$SMPROGRAMS\${NAME}\OpenVPN Config Authenticator.lnk" $INSTDIR\Auth.exe
+CreateShortCut "$SMPROGRAMS\${NAME}\Uninstall.lnk" $INSTDIR\Uninstall.exe
+; Register in the Control Panel
+SetRegView 32
+WriteRegStr "HKLM" "${UNINST_KEY}" "DisplayName" "${NAME}"
+WriteRegStr "HKLM" "${UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
+WriteRegStr "HKLM" "${UNINST_KEY}" "DisplayVersion" "@PROJECT_VERSION@"
+WriteRegStr "HKLM" "${UNINST_KEY}" "Publisher" "Narezzurri"
+WriteRegStr "HKLM" "${UNINST_KEY}" "HelpLink" "https://github.com/Narezzurri/OpenVPN-Config-Manager"
+SectionEnd
+
+Section "uninstall"
+; Program files
+RMDir /r "$INSTDIR"
+RMDir /r "$SMPROGRAMS\${NAME}"
+; Regedit
+SetRegView 32
+DeleteRegKey "HKLM" "${UNINST_KEY}"
+SectionEnd

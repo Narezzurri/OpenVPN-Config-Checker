@@ -1,5 +1,7 @@
 /.vscode/
 
-*.exe
+/build/
 
-*.ovpn
+/Testing/
+
+*.exe
