@@ -50,6 +50,7 @@ enable_testing ()
 add_test (NAME Checker_Help1 COMMAND Checker --help)
 add_test (NAME Checker_Help2 COMMAND Checker /help)
 add_test (NAME Checker_Help3 COMMAND Checker /?)
+add_test (NAME Checker_Function COMMAND echo "remote 8.8.8.8" > 1.ovpn && Checker 1.ovpn /w 2 /t 2 4)
 
 # Install package
 
