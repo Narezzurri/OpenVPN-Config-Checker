@@ -15,7 +15,9 @@ int main (int argc, const char* argv[])
 		cout << endl << string {
 			#embed	"AuthHelp.txt"
 		} << endl;
+#ifndef		DEBUG
 		getchar ();
+#endif
 		return 0;
 	}
 	int cnt = 0;
@@ -76,6 +78,8 @@ int main (int argc, const char* argv[])
 	}
 	cerr << cnt << " files appended successfully." << endl;
 	freopen ("CON", "r", stdin);
+#ifndef		DEBUG
 	getchar ();
+#endif
 	return 0;
 }

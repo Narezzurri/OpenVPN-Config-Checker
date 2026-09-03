@@ -21,7 +21,9 @@ int main (int argc, const char* argv[])
 		cout << endl << string {
 			#embed	"CheckerHelp.txt"
 		} << endl;
+#ifndef		DEBUG
 		getchar ();
+#endif
 		return 0;
 	}
 	vector<int> mark (argc);
@@ -93,6 +95,8 @@ int main (int argc, const char* argv[])
 	}
 	cerr << cnt << " files checked successfully." << endl;
 	freopen ("CON", "r", stdin);
+#ifndef		DEBUG
 	getchar ();
+#endif
 	return 0;
 }

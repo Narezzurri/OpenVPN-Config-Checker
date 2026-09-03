@@ -2,6 +2,8 @@
 
 /build/
 
+/Testing/
+
 *.exe
 
 *.ovpn

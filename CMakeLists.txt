@@ -43,6 +43,14 @@ foreach (EXE ${EXES})
 	target_link_libraries (${EXE} lib)
 endforeach ()
 
+# Test
+
+enable_testing ()
+
+add_test (NAME Checker_Help1 COMMAND Checker --help)
+add_test (NAME Checker_Help2 COMMAND Checker /help)
+add_test (NAME Checker_Help3 COMMAND Checker /?)
+
 # Install package
 
 configure_file ("Setup.nsi.in" "Setup.nsi" @ONLY)
