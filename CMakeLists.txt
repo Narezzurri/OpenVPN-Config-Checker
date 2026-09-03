@@ -7,6 +7,9 @@ set (AUTH_DIR "Authenticator")
 # Version
 set (CHECKER_VER "1.3.0")
 set (AUTH_VER "1.0.0")
+# C++ version
+set (CMAKE_CXX_STANDARD 23)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 function (split VERSION MAJOR MINOR PATCH)
 	string (REPLACE "." ";" VERSION "${VERSION}")
