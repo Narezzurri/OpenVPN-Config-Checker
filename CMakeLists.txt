@@ -50,18 +50,18 @@ enable_testing ()
 add_test (NAME Checker_Help1 COMMAND Checker --help)
 add_test (NAME Checker_Help2 COMMAND Checker /help)
 add_test (NAME Checker_Help3 COMMAND Checker /?)
-add_test (NAME Checker_Function COMMAND echo "remote 8.8.8.8" > 1.ovpn && Checker 1.ovpn /w 2 /t 2 4)
+add_test (NAME Checker_Function COMMAND Checker Sample/Sample1.ovpn Sample/Sample2.ovpn Sample/Sample3.ovpn Sample/Sample4.ovpn /w 2 /t 2 4)
 
 # Install package
 
 configure_file ("Setup.nsi.in" "Setup.nsi" @ONLY)
 add_custom_target (
 	build
-	COMMAND ${CMAKE_COMMAND} -E echo "Building NSIS installer..."
-	COMMAND makensis "${CMAKE_BINARY_DIR}/Setup.nsi"
+	COMMENT "Creating NSIS installer"
 	DEPENDS ${CMAKE_BINARY_DIR}/Setup.nsi CHECKER AUTH
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
-	COMMENT "Creating NSIS installer"
+	COMMAND ${CMAKE_COMMAND} -E echo "Building NSIS installer..."
+	COMMAND makensis "${CMAKE_BINARY_DIR}/Setup.nsi"
 )
 
 # install (
