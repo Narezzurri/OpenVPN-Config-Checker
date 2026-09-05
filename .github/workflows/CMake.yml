@@ -1,0 +1,70 @@
+name: CMake
+
+on:
+  push:
+    tags-ignore: [ "*" ]
+  release:
+    types: [ published,edited ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v7.0.1
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles"
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Test
+      working-directory: build
+      run: ctest
+
+  build:
+    runs-on: windows-latest
+    if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v7.0.1
+
+    - name: Install NSIS
+      run: choco install nsis -y
+
+    - name: Deploy NSIS
+      run: echo "C:\Program Files (x86)\NSIS" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+    - name: Verify NSIS
+      run: makensis -VERSION
+
+    - name: Configure CMake
+      run: cmake -B build -DCMAKE_BUILD_TYPE=Build -G "MinGW Makefiles"
+
+    - name: Build
+      run: cmake --build build
+
+    - name: Create an installation package
+      run: make -C build build
+
+    - name: List build directory
+      run: dir build
+
+    - name: Upload Release Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenVPN-Config-Manager-Release
+        path: build/OpenVPNConfigManagerSetup-*.exe
+
+    - name: Upload to Release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        file: build/*.exe
+        overwrite: true
+        file_glob: true
+        draft: false
