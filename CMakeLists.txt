@@ -5,6 +5,7 @@ set (AUTH_NAME "Auth")
 set (CHECKER_DIR "Checker")
 set (AUTH_DIR "Authenticator")
 # Version
+set (VERSION "2.1.0")
 set (CHECKER_VER "1.3.0")
 set (AUTH_VER "1.0.0")
 # C++ version
@@ -22,7 +23,7 @@ function (split VERSION MAJOR MINOR PATCH)
 endfunction ()
 
 cmake_minimum_required (VERSION 3.12)
-project (OpenVPN-Config-Manager VERSION 2.1.0 LANGUAGES CXX HOMEPAGE_URL https://github.com/Narezzurri/OpenVPN-Config-Manager)
+project (OpenVPN-Config-Manager VERSION "${VERSION}" LANGUAGES CXX HOMEPAGE_URL https://github.com/Narezzurri/OpenVPN-Config-Manager)
 
 include_directories (.)
 
@@ -30,16 +31,17 @@ add_library (lib STATIC lib.cpp)
 
 set (EXES CHECKER AUTH)
 foreach (EXE ${EXES})
-	add_executable (${EXE} ${CMAKE_CURRENT_SOURCE_DIR}/${${EXE}_DIR}/${EXE}.cpp)
-	set_target_properties (${EXE} PROPERTIES VERSION ${${EXE}_VER} OUTPUT_NAME "${${EXE}_NAME}")
+	set (OBJ ${${EXE}_NAME})
+	add_executable ("${OBJ}" "${CMAKE_CURRENT_SOURCE_DIR}/${${EXE}_DIR}/${OBJ}.cpp")
+	set_target_properties ("${OBJ}" PROPERTIES VERSION "${${EXE}_VER}" OUTPUT_NAME "${OBJ}")
 	# resource
-	set (APP_NAME "${${EXE}_NAME}")
+	set (APP_NAME "${OBJ}")
 	set (APP_FULLNAME "${${EXE}_DIR}")
 	split ("${${EXE}_VER}" APP_VERSION_MAJOR APP_VERSION_MINOR APP_VERSION_PATCH)
-	configure_file (resource.rc.in ${CMAKE_CURRENT_BINARY_DIR}/${${EXE}_DIR}/resource.rc @ONLY)
-	target_sources (${EXE} PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/${${EXE}_DIR}/resource.rc)
+	configure_file (resource.rc.in "${CMAKE_CURRENT_BINARY_DIR}/${OBJ}/resource.rc" @ONLY)
+	target_sources ("${OBJ}" PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${OBJ}/resource.rc")
 	# library
-	target_link_libraries (${EXE} lib)
+	target_link_libraries ("${OBJ}" lib)
 endforeach ()
 
 # Test
@@ -57,7 +59,7 @@ configure_file ("Setup.nsi.in" "Setup.nsi" @ONLY)
 add_custom_target (
 	build
 	COMMENT "Creating NSIS installer"
-	DEPENDS ${CMAKE_BINARY_DIR}/Setup.nsi CHECKER AUTH
+	DEPENDS ${CMAKE_BINARY_DIR}/Setup.nsi Checker Authenticator
 	WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	COMMAND ${CMAKE_COMMAND} -E echo "Building NSIS installer..."
 	COMMAND makensis "${CMAKE_BINARY_DIR}/Setup.nsi"

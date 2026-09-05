@@ -12,6 +12,7 @@ int a, b, c, d;
 int ping_cnt = 0;
 db sec_per_wait = 1;
 db ping_timeout = 1;
+vector<string> files;
 
 int main (int argc, const char* argv[])
 {
@@ -55,41 +56,40 @@ int main (int argc, const char* argv[])
 	} ();
 	int cnt = 0;
 	for (int i = 1; i < argc; i++) if (!mark[i])
+		Search (argv[i], files);
+	for (int i = 0; i < files.size(); i++)
 	{
 		if (T > 0 && cnt && !(cnt % T))
 			Sleep (sec_per_wait * 1000);
-		vector<string> files = Search (argv[i]);
-		for (auto filename : files)
+		string filename = files[i];
+		cerr << filename << " : ";
+		if (extract (filename, '.') != ".ovpn")
+			fputs ("Unsupported file type.\n", stderr);
+		else
 		{
-			cerr << filename << " : ";
-			if (extract (filename, '.') != ".ovpn")
-				fputs ("Unsupported file type.\n", stderr);
+			cin.clear();
+			freopen (filename.c_str(), "r", stdin);
+			string addr;
+			cin >> addr;
+			while (cin >> addr && addr != "remote");
+			if (addr != "remote")
+				fputs ("Server ip address not found.\n", stderr);
 			else
 			{
-				cin.clear();
-				freopen (filename.c_str(), "r", stdin);
-				string addr;
-				cin >> addr;
-				while (cin >> addr && addr != "remote");
-				if (addr != "remote")
-					fputs ("Server ip address not found.\n", stderr);
+				cin >> addr;				// Server address
+				string ping = "ping " + addr + " -w " + to_string ((int) (ping_timeout * 1e3));	// Complete ping command
+				if (ping_cnt)
+					ping += " -n " + to_string (ping_cnt);
 				else
-				{
-					cin >> addr;				// Server address
-					string ping = "ping " + addr + " -w " + to_string ((int) (ping_timeout * 1e3));	// Complete ping command
-					if (ping_cnt)
-						ping += " -n " + to_string (ping_cnt);
-					else
-						ping += " -t";
-					if (string s = extract (filename, '\\'); !s.empty())
-						filename = s;
-					string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
-					if (!~T)
-						cmd = "start /wait" + cmd.substr(5);
-					system (cmd.c_str());
-					cnt++;
-					fputs ("Done.\n", stderr);
-				}
+					ping += " -t";
+				if (string s = extract (filename, '\\'); !s.empty())
+					filename = s.substr(1);
+				string cmd = "start " + quote (filename) + " cmd /c " + quote (ping);
+				if (!~T)
+					cmd = "start /wait" + cmd.substr(5);
+				system (cmd.c_str());
+				cnt++;
+				fputs ("Done.\n", stderr);
 			}
 		}
 	}

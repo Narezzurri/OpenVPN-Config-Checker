@@ -32,15 +32,28 @@ string extract (string s, char c)
 		return s.substr (idx);
 }
 
-vector<string> Search (string filename)
+vector<string> Search (string filename, vector<string> &ans)
 {
-	vector<string> ans;
+	string dir = "";
+	if (int idx = filename.find_last_of('\\'); idx != string::npos)
+		dir = filename.substr(0, idx);
 	WIN32_FIND_DATAA file;
 	HANDLE handle = FindFirstFileA (filename.c_str(), &file);
 	if (handle != INVALID_HANDLE_VALUE)
 	{
-		do if (!(file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			ans.emplace_back(file.cFileName);
+		do
+		{
+			if (!(file.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				ans.emplace_back(string (MAX_PATH, '\0'));
+				if (dir.empty())
+					GetFullPathNameA (file.cFileName, MAX_PATH, ans.back().data(), NULL);
+				else
+					GetFullPathNameA ((dir + '\\' + file.cFileName).c_str(), MAX_PATH, ans.back().data(), NULL);
+				if (int idx = ans.back().find_first_of('\0'); idx != string::npos)
+					ans.back().resize(idx);
+			}
+		}
 		while (FindNextFileA (handle, &file));
 	}
 	FindClose (handle);

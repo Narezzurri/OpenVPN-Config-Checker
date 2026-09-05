@@ -10,8 +10,8 @@ int get_float (const char *s, db &ans);
 string quote (string s);
 /* @brief Extract a substring from [s] up to the last occurrence of [c] (included) */
 string extract (string s, char c);
-/* @brief Search for files matching the wildcard */
-vector<string> Search (string filename);
+/* @brief Search for files matching the wildcard and store them in [ans] */
+vector<string> Search (string filename, vector<string> &ans);
 /* @brief Detect "--help" "/?" "/help" in the arguments */
 int HelpDetected (int argc, const char* argv[]);
 /* @brief Display the application icons */
