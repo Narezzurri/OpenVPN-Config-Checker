@@ -46,12 +46,23 @@ endforeach ()
 
 # Test
 
-enable_testing ()
-
-add_test (NAME Checker_Help1 COMMAND Checker --help)
-add_test (NAME Checker_Help2 COMMAND Checker /help)
-add_test (NAME Checker_Help3 COMMAND Checker /?)
-add_test (NAME Checker_Function COMMAND Checker Samples/Sample1.ovpn Samples/Sample2.ovpn Samples/Sample3.ovpn Samples/Sample4.ovpn /w 2 /t 2 4)
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+	enable_testing ()
+	set (CTEST_TIMEOUT 10)
+	add_compile_definitions (DEBUG)
+	# Checker
+	add_test (NAME Checker_Help1 COMMAND Checker --help)
+	add_test (NAME Checker_Help2 COMMAND Checker /help)
+	add_test (NAME Checker_Help3 COMMAND Checker /?)
+	add_test (NAME Checker_Function COMMAND Checker Samples/Sample1.ovpn Samples/Sample2.ovpn Samples/Sample3.ovpn Samples/Sample4.ovpn /w 0.8 /t 2 1 /n 2)
+	add_test (NAME Checker_Wildcard COMMAND Checker Samples/*.ovpn /w 0.8 /t 2 1 /n 2)
+	# Authenticator
+	add_test (NAME Auth_Help1 COMMAND Auth --help)
+	add_test (NAME Auth_Help2 COMMAND Auth /help)
+	add_test (NAME Auth_Help3 COMMAND Auth /?)
+	add_test (NAME Auth_Function COMMAND Auth Samples/Sample1.ovpn Samples/Sample2.ovpn Samples/Sample3.ovpn Samples/Sample4.ovpn)
+	add_test (NAME Auth_Wildcard COMMAND Auth Samples/*.ovpn)
+endif ()
 
 # Install package
 
